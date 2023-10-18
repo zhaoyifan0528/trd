@@ -1,145 +1,349 @@
-<!DOCTTYPE HTML>
-<HTML>
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>第七史诗网站导航</title>
 
-<head>
-	<meta charset="UTF-8">
-	<title>攻击爆伤分析</title>
-</head>
-<body>
-	<form action="">
-		有任何问题请B站<a href="https://cn.bing.com/" target="_blank">@D3Tekim</a><br>
-		满觉面板攻击: <input style="width:80" id="at" type="number" name="firstname"><br>
-		神器提供攻击: <input style="width:80" id="sat" type="number" name="lastname"><br>
-		刻印攻击（%）: <input style="width:80" id="z" type="number" name="myz"><br>
-		项链: <select id="r1">
-			<option value = "r11">爆伤</option>
-			<option value = "r12">攻击</option>
-			<option value = "r13">皆不是</option>
-		</select>
-		<input style="display:none;width:50" id="r1n" type="number" name="r1n" value="70">
-		<br>
-		戒指: <select id="r2">
-			<option value = "r21">攻击</option>
-			<option value = "r22">非攻击</option>
-		</select>
-		<input style="display:none;width:50" id="r2n" type="number" name="r2n" value="65">
-		<br>
-		鞋: <select id="r3">
-			<option value = "r31">攻击</option>
-			<option value = "r32">非攻击</option>
-		</select>
-		<input style="display:none;width:50" id="r3n" type="number" name="r3n" value="65"><br>
-		套装: <select id="tt">
-			<option value = "ttat">攻击套</option>
-			<option value = "ttda">爆伤套</option>
-			<option value = "no">皆不是</option>
-		</select><br>
-		计算方法: <select id="way" onchange="changeshow()">
-			<option value = "way1">优化面板</option>
-			<option value = "way2">按分计算</option>
-		</select><br>
-		<div id="div1" style="display:none" >
-		需求分数: <input style="width:80" id="br" type="number" name="mybr">
+    <!-- 引入Bootstrap样式表 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css"
+    />
+
+    <!-- 引入Vue库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.min.js"></script>
+
+    <style>
+      .center-title {
+        text-align: center;
+      }
+      .full-width {
+        width: 100%;
+      }
+      .table-primary {
+        --bs-table-bg: #6f42c1;
+        color: white;
+      }
+      .btn-group {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app" class="container">
+      <h1 class="center-title">第七史诗网站导航</h1>
+      <h6 class="center-title">
+        oho!
+      </h6>
+
+      <div class="row">
+        <div class="col-md-3 mt-3">
+          <label for="evaluationPlan">网站列表</label>
+         
+        </div>
+        
+        
+       
+      </div>
+
+
+      <div class="row mt-4">
+        <div class="col-md-3">
+          <a href="https://space.bilibili.com/2136569666" target="_blank">第七史诗官方国服B站</a><p>
+		  <img src="1.jpg" width="70%" height="70%">
+        </div>
+		 <div class="col-md-3">
+          <a href="https://epic7.gamekee.com/" target="_blank">第七史诗wiki</a><p>
+		   <img src="2.jpg" width="70%" height="70%">
+        </div>
+        <div class="col-md-3">
+          <a href="https://epic7.game.onstove.com/guide/home?world=world_asia&lang=zh-CN" target="_blank">第七史诗知识罐</a><p>
+			 <img src="3.jpg" width="70%" height="70%">
 		</div>
-		<div id="div2">
-		攻击数值: <input style="width:80" id="atthas" type="number" name="atthas"><br>
-		爆伤数值（%）: <input style="width:80" id="damhas" type="number" name="damhas">
+		<div class="col-md-3">
+          <a href="score.html" target="_blank">装备分数判断</a><p>
+		   <img src="4.jpg" width="70%" height="70%">
+        </div>
+		<div class="col-md-3">
+          <a href="https://page.onstove.com/epicseven/tw" target="_blank">第七史诗社群</a><p>
+		  <img src="11.jpg" width="70%" height="70%">
+        </div>
+         <div class="col-md-3">
+          <a href="http://e7-test.soultrial.top" target="_blank">第七史诗装备推荐器（@蒙面小将）</a><p>
+         <img src="5.jpg" width="70%" height="70%">
 		</div>
-		<b id="ans"></b><br>
-		<input type="button" value="启动！" onclick="getValue()">
-		<input type="button" value="show/hide detail" onclick="showdetail()">
-	</form>
-</body>
-<script type="text/javascript">
-var mypl = 0,myset = 0,flag = 0;
-function getValue(){
-	var val1 = Number(document.getElementById('at').value);
-	var val2 = Number(document.getElementById('sat').value);
-	var val3 = Number(document.getElementById('z').value);
-	var val4 = Number(val1) + Number(val2) + 525.0 + (Number(val1)*(Number(val3)/100.0));
-	
-	var vk = Number(150.0);
-	var val5 = document.getElementById('r1').value;
-	if(val5 == "r11") {
-		if(flag == 0) vk = 150.0 + 70.0;
-		else vk = 150.0 + Number(document.getElementById('r1n').value);
-	}
-	else if(val5 == "r12") {
-		if(flag == 0) val4 = val4 + val1*0.65;
-		else val4 = val4 + val1*Number(document.getElementById('r1n').value)/100.0;
-	}
-	var val6 = document.getElementById('r2').value;
-	if(val6 == "r21") {
-		if(flag == 0) val4 = val4 + val1*0.65;
-		else val4 = val4 + val1*Number(document.getElementById('r2n').value)/100.0;
-	}
-	var val7 = document.getElementById('r3').value;
-	if(val7 == "r31") {
-		if(flag == 0) val4 = val4 + val1*0.65;
-		else val4 = val4 + val1*Number(document.getElementById('r3n').value)/100.0;
-	}
-	var val8 = 0;
-	var olda = 0, oldd = 0;
-	
-	var tt = document.getElementById('tt').value;
-	if(tt == "ttat") {
-		val4 = val4 + 0.45*val1;
-	}
-	else if(tt == "ttda") {
-		 vk = vk + 60.0;
-	}
-	var way = document.getElementById('way').value;
-	if(way == "way1") {
-		olda = document.getElementById('atthas').value;
-		oldd = document.getElementById('damhas').value;
-		val8 =  (Number(olda) - Number(val4))/val1 * 100.0 + (Number(oldd) - Number(vk))*1.1;
-	}
-	else {
-		val8 = document.getElementById('br').value;
-	}
-	var ans1 = (val4+(val1/100)*(val8)-vk*(val1/100)*1.1)/(2*(val1/100)*1.1);
-	var ans2 = val8 - 1.1 * ans1;
-	var ans3 = vk + ans1;
-	var ans4 = val4 + (val1/100)*ans2;
-	if(way == "way1") {
-		var del = (ans3.toFixed(1) * ans4.toFixed(1)) / (olda*oldd) * 100;
-		document.getElementById('ans').innerHTML = "增强比：" + del.toFixed(1) + "% 攻爆分数" + val8.toFixed(1) 
-		+ " 爆伤增值" + ans1.toFixed(1) + " 攻击增比" + ans2.toFixed(1)+
-		"<br />面板爆伤值" + ans3.toFixed(1) + "面板攻击值" + ans4.toFixed(1);
-	}
-	else {
-		document.getElementById('ans').innerHTML = " 爆伤增值" +ans1.toFixed(1) + " 攻击增比" + ans2.toFixed(1)+
-		"<br />面板爆伤值" + ans3.toFixed(1) + "面板攻击值" + ans4.toFixed(1);
-	}
-	
-	
-	
-}
-function changeshow(){
-	if(mypl == 0) {
-		document.getElementById('div1').style.display = "";
-		document.getElementById('div2').style.display = "none";
-		mypl = 1;
-	}
-	else{
-		document.getElementById('div1').style.display = "none";
-		document.getElementById('div2').style.display = "";
-		mypl = 0;
-	}
-}
-function showdetail(){
-	if(myset == 0) {
-		document.getElementById('r1n').style.display = "";
-		document.getElementById('r2n').style.display = "";
-		document.getElementById('r3n').style.display = "";
-		myset = 1;flag = 1;
-	}
-	else{
-		document.getElementById('r1n').style.display = "none";
-		document.getElementById('r2n').style.display = "none";
-		document.getElementById('r3n').style.display = "none";
-		myset = 0;
-	}
-}
-</script>
-</HTML>
+		 <div class="col-md-3">
+          <a href="https://icetail1.github.io/ICE-Calculate/e7-damage-calc/zh/" target="_blank">第七史诗伤害计算器</a><p>
+         <img src="6.jpg" width="70%" height="70%">
+		</div>
+		<div class="col-md-3">
+          <a href="knif.html" target="_blank">最佳攻爆比</a><p>
+			 <img src="7.jpg" width="70%" height="70%">
+	   </div>
+		<div class="col-md-3">
+          <a href="https://www.e7vau.lt/avatar-maker.html" target="_blank">头像制作网站</a><p>
+         <img src="8.jpg" width="70%" height="70%">
+		</div>
+		<div class="col-md-3">
+          <a href="https://www.e7bot.top/" target="_blank">百里使用手册</a><p>
+		  <img src="9.jpg" width="70%" height="70%">
+        </div>
+		<div class="col-md-3">
+          <a href="blodd.html" target="_blank">最佳血防比</a><p>
+		  <img src="10.jpg" width="70%" height="70%">
+        </div>
+		<div class="col-md-3">
+          <a href="https://triatk.gitee.io/ceciliabot.github.io" target="_blank">迷宫心情</a><p>
+		  <img src="12.jpg" width="70%" height="70%">
+        </div>
+      </div>
+
+      
+
+      <!-- <div class="row mt-4">
+        <div class="col-md-6">
+          <button class="btn btn-primary" @click="calculateScore">提交</button>
+          <button class="btn btn-secondary" @click="resetForm">清空</button>
+        </div>
+      </div> -->
+     
+    </div>
+
+    <!-- 引入Bootstrap脚本 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          options: [
+            { value: "方案11", label: "方案11：对高速需求最大方案" },
+            { value: "方案12", label: "方案12：+0速度要求降低+6提高" },
+            { value: "方案13", label: "方案13：+0+9（红）速度要求降低" },
+            { value: "方案14", label: "方案14：+0（红）速度要求降低+6提高" },
+            { value: "方案15", label: "方案15：+0+9速度要求降低" },
+            { value: "方案16", label: "方案16：+0+9（红）速度要求降低+3+6" },
+            { value: "方案17", label: "方案17：13对中高速装备有要求" },
+            { value: "方案18", label: "方案18：兼顾速度和高分装备方案" },
+            { value: "方案19", label: "方案19：+0（红）降低+3+6+9（紫）提高" },
+            { value: "方案20", label: "方案20：+0（红）+9（红）降低+3+6+9" },
+            { value: "方案21", label: "方案21：+0（红）降低+3+6+9（紫*2）" },
+          ],
+          positions: [
+            { label: "左三件", value: "左三件" },
+            // { label: "右三件", value: "右三件" },
+          ],
+          qualities: [
+            { label: "红装", value: "红装" },
+            { label: "紫装", value: "紫装" },
+          ],
+          levels: [
+            { label: "+0", value: "+0" },
+            { label: "+3", value: "+3" },
+            { label: "+6", value: "+6" },
+            { label: "+9", value: "+9" },
+            { label: "+15", value: "+15" },
+          ],
+          evaluationPlan: "方案18", // 默认选择方案18
+          equipmentPosition: "左三件", // 默认选择左三件
+          equipmentQuality: "红装", // 默认选择红装
+          equipmentLevel: "+0", // 默认选择+0
+          attackFixed: "",
+          attackPercentage: "",
+          defenseFixed: "",
+          defensePercentage: "",
+          healthFixed: "",
+          healthPercentage: "",
+          critRate: "",
+          critDamage: "",
+          effectHit: "",
+          effectResist: "",
+          speed: "",
+          evaluationData: {
+            方案11: [
+              [2, 24, 2, 22],
+              [5, 30, 5, 28],
+              [7, 36, 7, 34],
+              [10, 42, 10, 40],
+            ],
+            方案12: [
+              [2, 24, 2, 22],
+              [4, 30, 4, 28],
+              [7, 36, 7, 34],
+              [10, 42, 10, 40],
+            ],
+            方案13: [
+              [2, 24, 2, 22],
+              [4, 30, 4, 28],
+              [6, 36, 6, 34],
+              [9, 42, 10, 40],
+            ],
+            方案14: [
+              [2, 24, 3, 22],
+              [4, 30, 4, 28],
+              [7, 36, 7, 34],
+              [10, 42, 10, 40],
+            ],
+            方案15: [
+              [2, 24, 2, 22],
+              [4, 30, 4, 28],
+              [6, 36, 6, 34],
+              [9, 42, 9, 40],
+            ],
+            方案16: [
+              [2, 24, 2, 22],
+              [5, 30, 5, 28],
+              [7, 36, 7, 34],
+              [9, 42, 10, 40],
+            ],
+            方案17: [
+              [2, 24, 2, 22],
+              [5, 30, 5, 28],
+              [7, 36, 7, 34],
+              [10, 42, 11, 40],
+            ],
+            方案18: [
+              [2, 24, 3, 22],
+              [5, 30, 5, 28],
+              [7, 36, 7, 34],
+              [10, 42, 11, 40],
+            ],
+            方案19: [
+              [2, 24, 3, 22],
+              [5, 30, 5, 28],
+              [7, 36, 8, 34],
+              [10, 42, 11, 40],
+            ],
+            方案20: [
+              [2, 24, 3, 22],
+              [5, 30, 5, 28],
+              [7, 36, 7, 34],
+              [9, 42, 11, 40],
+            ],
+            方案21: [
+              [2, 24, 3, 22],
+              [4, 30, 5, 28],
+              [7, 36, 8, 34],
+              [10, 42, 11, 40],
+            ],
+            自定义方案: [
+              [0, 0, 0, 0],
+              [0, 0, 0, 0],
+              [0, 0, 0, 0],
+              [0, 0, 0, 0],
+              [0, 0, 0, 0],
+            ],
+          },
+          resultText: "",
+        },
+        methods: {
+          handleValueChange(event) {
+            const rowIndex = parseInt(event.target.dataset.rowIndex);
+            const columnIndex = parseInt(event.target.dataset.columnIndex);
+            // 更新表格数据
+            const customEvaluationData = JSON.parse(
+              JSON.stringify(this.evaluationData[this.evaluationPlan])
+            );
+            this.evaluationData["自定义方案"] = customEvaluationData;
+
+            this.$set(
+              this.evaluationData["自定义方案"][rowIndex],
+              columnIndex,
+              Number(event.target.innerText)
+            );
+            // 将装备强化评估方案select的值设为“自定义方案”
+            this.evaluationPlan = "自定义方案";
+          },
+          calculateScore() {
+            const attackFixedScore = Number(this.attackFixed);
+            const attackPercentageScore = Number(this.attackPercentage);
+            const defenseFixedScore = Number(this.defenseFixed);
+            const defensePercentageScore = Number(this.defensePercentage);
+            const healthFixedScore = Number(this.healthFixed);
+            const healthPercentageScore = Number(this.healthPercentage);
+            const critRateScore = Number(this.critRate);
+            const critDamageScore = Number(this.critDamage);
+            const speedScore = Number(this.speed);
+            const effectHitScore = Number(this.effectHit);
+            const effectResistScore = Number(this.effectResist);
+
+            const totalScore = Math.floor(
+              attackFixedScore / 9 +
+                attackPercentageScore +
+                defenseFixedScore / 6 +
+                defensePercentageScore +
+                healthFixedScore / 50 +
+                healthPercentageScore +
+                critRateScore * 1.5 +
+                critDamageScore * 1.1 +
+                speedScore * 2 +
+                effectHitScore +
+                effectResistScore
+            );
+
+            this.resultText = `装备分数(玩家分，向下取整）为：${totalScore}`;
+
+            // 根据装备等级和分数判断是否可以进一步强化或分级
+            if (this.equipmentLevel !== "+15") {
+              const rowIndex = this.levels.findIndex(
+                (level) => level.value === this.equipmentLevel
+              );
+              const columnStartIndex = this.equipmentQuality === "红装" ? 0 : 2;
+              const speedThreshold =
+                this.evaluationData[this.evaluationPlan][rowIndex][
+                  columnStartIndex
+                ];
+              const scoreThreshold =
+                this.evaluationData[this.evaluationPlan][rowIndex][
+                  columnStartIndex + 1
+                ];
+
+              if (this.speed >= speedThreshold || totalScore >= scoreThreshold) {
+                if (this.speed === "") {
+                  this.speed = 0;
+                }
+                this.resultText += `\n可以进一步强化，装备速度阈值：${speedThreshold}，装备实际速度值：${this.speed}，装备分数阈值：${scoreThreshold}`;
+              } else {
+                if (this.speed === "") {
+                  this.speed = 0;
+                }
+                this.resultText += `\n废件，萃取或狗粮，装备速度阈值：${speedThreshold}，装备实际速度值：${this.speed}，装备分数阈值：${scoreThreshold}`;
+              }
+            } else {
+              if (totalScore >= 54 && totalScore <= 56) {
+                this.resultText += "\n优良装备，54-56";
+              } else if (totalScore >= 57 && totalScore <= 59) {
+                this.resultText += "\n主力装备，57-59";
+              } else if (totalScore >= 60 && totalScore <= 62) {
+                this.resultText += "\n极品装备，60-62";
+              } else if (totalScore >= 63 && totalScore <= 65) {
+                this.resultText += "\n传家宝装备，63-65";
+              } else if (totalScore >= 66) {
+                this.resultText += "\n神装装备，66以上";
+              } else {
+                this.resultText += "\n无评级装备，低于54";
+              }
+            }
+          },
+          resetForm() {
+            this.attackFixed = "";
+            this.attackPercentage = "";
+            this.defenseFixed = "";
+            this.defensePercentage = "";
+            this.healthFixed = "";
+            this.healthPercentage = "";
+            this.critRate = "";
+            this.critDamage = "";
+            this.effectHit = "";
+            this.effectResist = "";
+            this.speed = "";
+            this.resultText = "";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
