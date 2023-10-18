@@ -1,0 +1,91 @@
+<!DOCTTYPE HTML>
+<HTML>
+
+<head>
+	<meta charset="UTF-8">
+	<title>最佳血防比</title>
+</head>
+<body>
+	<form action="">
+		<a href="https://cn.bing.com/" target="_blank">最佳血防比@D3Tekim</a><br>
+		面板血量: <input style="width:80" id="at" type="number" name="firstname"><br>
+		面板防御: <input style="width:80" id="sat" type="number" name="lastname"><br>
+		
+		判断方式: <select id="way" onchange="changeshow()">
+			<option value = "way1">面板优化</option>
+			<option value = "way2">给定分数</option>
+		</select><br>
+		<div id="div1" style="display:none" >
+		血防分数: <input style="width:80" id="br" type="number" name="mybr">
+		</div>
+		<div id="div2">
+		你的血量值: <input style="width:80" id="atthas" type="number" name="atthas"><br>
+		你的防御值: <input style="width:80" id="damhas" type="number" name="damhas">
+		</div>
+		<b id="ans"></b><br>
+		<input type="button" value="get ans" onclick="getValue()">
+	</form>
+</body>
+<script type="text/javascript">
+var mypl = 0,myset = 0,flag = 0;
+function getValue(){
+	var val1 = Number(document.getElementById('at').value);
+	var val2 = Number(document.getElementById('sat').value);
+	
+	var val8 = 0;
+	var olda = 0, oldd = 0;
+	var way = document.getElementById('way').value;
+	if(way == "way1") {
+		olda = Number(document.getElementById('atthas').value);
+		oldd = Number(document.getElementById('damhas').value);
+		val8 =  (Number(olda) - Number(val1) - 2835.0)/val1 * 100.0 + (Number(oldd) - Number(val2) - 310.0)/val2 * 100.0;
+	}
+	else {
+		val8 = Number(document.getElementById('br').value);
+	}
+	var ans1 = ((val1/100.0)*(val2+610.0+(val2/100.0)*val8)-(val2/100.0)*(val1+2835.0))/((val1/100.0)*(val2/100.0)*2.0);
+	var ans2 = val8 - ans1;
+	var ans3 = val1 + 2835.0 + (val1/100.0)*ans1;
+	var ans4 = val2 + 310.0 + (val2/100.0)*ans2;
+	if(way == "way1") {
+		var del = ans3 * (ans4+300.0) / olda/(oldd+300.0) * 100.0;
+		document.getElementById('ans').innerHTML = "坦度增加"+del.toFixed(1) + "% 血防总分数 " + val8.toFixed(1) 
+		+ " 血量分数 " + ans1.toFixed(1) + " 防御分数 " + ans2.toFixed(1)+
+		"<br />优化后血量 " + ans3.toFixed(1) + " 优化后防御 " + ans4.toFixed(1);
+	}
+	else {
+		document.getElementById('ans').innerHTML =  " 血量分数 " +ans1.toFixed(1) + " 防御分数 " + ans2.toFixed(1)+
+		"<br />优化后血量" + ans3.toFixed(1) + " 优化后防御 " + ans4.toFixed(1);
+	}
+	
+	
+	
+}
+function changeshow(){
+	if(mypl == 0) {
+		document.getElementById('div1').style.display = "";
+		document.getElementById('div2').style.display = "none";
+		mypl = 1;
+	}
+	else{
+		document.getElementById('div1').style.display = "none";
+		document.getElementById('div2').style.display = "";
+		mypl = 0;
+	}
+}
+function showdetail(){
+	if(myset == 0) {
+		document.getElementById('r1n').style.display = "";
+		document.getElementById('r2n').style.display = "";
+		document.getElementById('r3n').style.display = "";
+		myset = 1;flag = 1;
+	}
+	else{
+		document.getElementById('r1n').style.display = "none";
+		document.getElementById('r2n').style.display = "none";
+		document.getElementById('r3n').style.display = "none";
+		myset = 0;
+	}
+}
+</script>
+</HTML>
