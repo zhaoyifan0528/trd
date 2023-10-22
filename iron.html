@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>第七史诗网站导航</title>
+
+    <!-- 引入Bootstrap样式表 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css"
+    />
+
+    <!-- 引入Vue库 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.14/vue.min.js"></script>
+
+    <style>
+      .center-title {
+        text-align: center;
+      }
+      .full-width {
+        width: 100%;
+      }
+      .table-primary {
+        --bs-table-bg: #6f42c1;
+        color: white;
+      }
+      .btn-group {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+
+  <body >
+    <div id="app" class="container">
+      <h1 class="center-title">打造模拟器</h1>
+      <h6 class="center-title">
+        have a good day!
+      </h6>
+
+      
+		<center>
+		<div>
+        <canvas id="test" width="400" height="400"></canvas>
+	<form action="">
+		<a href="" target="_blank"></a><br>
+		choose way: <select id="bw" onchange="changeshow()">
+			<option value = "z1">大剑</option>
+			<option value = "z2">头盔</option>
+			<option value = "z3">衣服</option>
+			<option value = "r1">项链</option>
+			<option value = "r2">戒指</option>
+			<option value = "r3">鞋子</option>
+		</select><br>
+		<input type="button" value="打造" onclick="getValue()">
+		<input style="width:60px" type="button" value="强化" onclick="getUp()"><br>
+		<input style="width:90px" type="button" value="保存该装备" onclick="save()"><br>
+		标号: <input style="width:80" id="showa" type="number" name="lastname">
+		<input style="width:60px" type="button" value="查询" onclick="show()"><br>
+		已存储:<b id="total"> </b> 
+	</form>
+	</div>
+	</center>
+		 
+
+      
+
+     
+     
+    </div>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+     
+var fruits = [],val = [],color = 4,score = 0.0,upi = 0,mai = 0,isr = 0,faw = 0;
+var savec = [],savecolor = [],savescore = [],savemai = [],st = [];
+var savefruits = [];
+var saveval = [],saveupi = [];
+var tes = ["攻击","攻击","速度","生命","生命","效果命中","效果抗性","暴击率","暴击伤害","防御","防御"];
+var fuh = ["%"," "," ","%"," ","%","%","%","%","%"," "];
+var convas = document.getElementById('test');
+var ctx = convas.getContext('2d');
+window.onload = function(){
+	var img = new Image();
+	img.src = document.getElementById('bw').value+".png";
+	img.onload = function(){
+		ctx.drawImage(img,0,0,400,400);
+	}
+}
+function show(){
+	var nm = Number(document.getElementById('showa').value) - 1;
+	ctx.clearRect(0, 0, 400, 400);
+	var img = new Image();
+	img.src = savec[nm]+".png";
+	img.onload = function(){
+		ctx.drawImage(img,0,0,400,400);
+		ctx.font = '20px Arial';
+		ctx.strokeStyle = 'rgb(255,255,255)';
+		ctx.strokeText( " 主词条 :" + tes[savemai[nm]-1] + fuh[savemai[nm]-1] + "(+" + saveupi[nm]+")",20,180);
+		var first = 205.0,line = 23.0;
+		ctx.font = '14px Arial';
+		ctx.strokeText(tes[savefruits[nm][0] - 1] + ":" + saveval[nm][0]+ fuh[savefruits[nm][0] - 1],20,first);
+		ctx.strokeText(tes[savefruits[nm][1] - 1] + ":" + saveval[nm][1]+ fuh[savefruits[nm][1] - 1],20,first+line*1);
+		ctx.strokeText(tes[savefruits[nm][2] - 1] + ":" + saveval[nm][2]+ fuh[savefruits[nm][2] - 1],20,first+line*2);
+		if(savefruits[nm].length >= 4)	ctx.strokeText(tes[savefruits[nm][3] - 1] + ":" + saveval[nm][3]+ fuh[savefruits[nm][3] - 1],20,first+line*3);
+		ctx.strokeStyle = 'rgb(255,255,0)';
+		ctx.strokeText(savescore[nm].toFixed(1),180,300);
+	}
+	
+}
+function save(){
+	savec.push(document.getElementById('bw').value);
+	savemai.push(mai);saveupi.push(upi);
+	savecolor.push(color);savescore.push(score);
+	savefruits.push(fruits);saveval.push(val);
+	document.getElementById('total').innerHTML = savemai.length;
+}
+function getValue(){
+	var pz = randomNum(1,100);
+	if(pz <= 12) color = 4;
+	else color = 3;
+	fruits.length = 0;
+	val.length = 0;st.length = 0;
+	score = 0.0;upi = 0;isr = 0;
+	if(document.getElementById('bw').value == "z1") {
+		mai = 2;
+	}
+	if(document.getElementById('bw').value == "z2") {
+		mai = 5;
+	}
+	if(document.getElementById('bw').value == "z3") {
+		mai = 11;
+	}
+	if(document.getElementById('bw').value == "r1") {
+		mai = 3;
+		while(mai == 3 || mai == 6 || mai == 7) 
+			mai = randomNum(1,11);
+	}
+	if(document.getElementById('bw').value == "r2") {
+		mai = 3;
+		while(mai == 3 || mai == 8 || mai == 9) 
+			mai = randomNum(1,11);
+	}
+	if(document.getElementById('bw').value == "r3") {
+		mai = 6;
+		while(mai == 6|| mai == 7 || mai == 8 || mai == 9) 
+			mai = randomNum(1,11);
+	}
+	while(fruits.length < color) {
+		var flag = 0, now = mai;
+		if(document.getElementById('bw').value == "z1") 
+			while(mai == now) now = randomNum(1,9);
+		else if(document.getElementById('bw').value == "z2") 
+			while(mai == now) now = randomNum(1,11);
+		else if(document.getElementById('bw').value == "z3") 
+			while(mai == now) now = randomNum(3,11);
+		else 
+			while(mai == now) now = randomNum(1,11);
+		for(var i = 0;i < fruits.length;++i) {
+			if(now == fruits[i]) flag = 1;
+		}
+		if(flag == 0) fruits.push(now);
+	}
+	for(var i = 0;i < fruits.length;++i) {
+		val[i] = 0;
+		judge(i);
+		st[i] = Number(val[i]);
+	}
+	fresh_ans();
+}
+function fresh_ans(){
+	ctx.clearRect(200, 0, 300, 300);
+	var img = new Image();
+	img.src = document.getElementById('bw').value+".png";
+	img.onload = function(){
+		ctx.drawImage(img,0,0,400,400);
+		ctx.font = '20px Arial';
+		ctx.strokeStyle = 'rgb(255,255,255)';
+		ctx.strokeText( "主词条 : " + tes[mai-1] + fuh[mai-1] + "(+" + upi+")",20,180);
+		ctx.font = '14px Arial';
+		var first = 205.0,line = 23.0;
+		ctx.strokeText(tes[fruits[0] - 1] + ":" + val[0] + fuh[fruits[0] - 1] + (st[0] == val[0]?" ":("(+"+Number(val[0]-st[0])+")")),20,first);
+		ctx.strokeText(tes[fruits[1] - 1] + ":" + val[1] + fuh[fruits[1] - 1] + (st[1] == val[1]?" ":("(+"+Number(val[1]-st[1])+")")),20,first + line);
+		ctx.strokeText(tes[fruits[2] - 1] + ":" + val[2] + fuh[fruits[2] - 1] + (st[2] == val[2]?" ":("(+"+Number(val[2]-st[2])+")")),20,first + line*2);
+		if(fruits.length >= 4)	ctx.strokeText(tes[fruits[3] - 1] + ":" + val[3] + fuh[fruits[3] - 1] + (st[3] == val[3]?" ":("(+"+Number(val[3]-st[3])+")")),20,first + line*3);
+		ctx.strokeStyle = 'rgb(255,255,0)';
+		ctx.strokeText(score.toFixed(1),180,300);
+	}
+}
+function getUp(){
+	if(upi >= 15) return ;
+	upi += 3;faw += 3;
+	if(color == 3&&upi == 12)  {
+		while(fruits.length < 4){
+			var flag1 = 0,now1 = mai;
+			if(document.getElementById('bw').value == "z1") 
+				while(mai == now1) now1 = randomNum(1,9);
+			else if(document.getElementById('bw').value == "z2") 
+				while(mai == now1) now1 = randomNum(1,11);
+			else if(document.getElementById('bw').value == "z3") 
+				while(mai == now1) now1 = randomNum(3,11);
+			else 
+				while(mai == now1) now1 = randomNum(1,11);
+			for(var i = 0;i < fruits.length;++i) {
+				if(now1 == fruits[i]) flag1 = 1;
+			}
+			if(flag1 == 0) {
+				fruits.push(now1);
+				val[3] = 0;judge(3);st[3]=0;
+			}
+		}
+	}
+	else {
+		var ch = randomNum(1, fruits.length);
+		judge(ch - 1);
+	}
+	fresh_ans();
+}
+function judge(i) {
+	if(fruits[i] == 1) {
+		var cc = Number(randomNum(4,8));
+		val[i] += cc;
+		score += cc;
+	}
+	if(fruits[i] == 2) {
+		var cc = Number(randomNum(33,46));
+		if(color == 3) cc -= 2;
+		val[i] += cc;
+		score += cc/12.0;
+	}
+	if(fruits[i] == 3) {
+		var cc = 0;
+		if(color == 4) {
+			cc = Number(randomNum(2, 4));
+			var sp = Number(randomNum(1, 10000));
+			if(sp <= 32) cc = 5;
+		}
+		else {
+			var sp = Number(randomNum(1, 10000));
+			if(sp <= 383) cc = 1;
+			else if(sp <= 3867) cc = 2;
+			else if(sp <= 7351) cc = 3;
+			else cc = 4;
+		}
+		val[i] += cc;
+		score += cc * 2;
+	}
+	if(fruits[i] == 4) {
+		var cc = Number(randomNum(4,8));
+		val[i] += cc;
+		score += cc;
+	}
+	if(fruits[i] == 5) {
+		var cc =  Number(randomNum(157,202));
+		if(color == 3) cc -= 8;
+		val[i] += cc;
+		score += cc/50.0;
+	}
+	if(fruits[i] == 6) {
+		var cc = Number(randomNum(4,8));
+		val[i] += cc;
+		score += cc;
+	}
+	if(fruits[i] == 7) {
+		var cc = Number(randomNum(4,8));
+		val[i] += cc;
+		score += cc;
+	}
+	if(fruits[i] == 8) {
+		var cc =  Number(randomNum(3,5));
+		val[i] += cc;
+		score += cc*1.5;
+	}
+	if(fruits[i] == 9) {
+		var cc = Number(randomNum(4,7));
+		val[i] += cc;
+		score += cc*1.1;
+	}
+	if(fruits[i] == 10) {
+		var cc = Number(randomNum(4,8));
+		val[i] += cc;
+		score += cc;
+	}
+	if(fruits[i] == 11) {
+		var cc = Number(randomNum(28,34));
+		if(color == 3) cc -= 2;
+		val[i] += cc;
+		score += cc/6.0;
+	}
+}
+function randomNum(minNum,maxNum){ 
+    switch(arguments.length){ 
+        case 1: 
+            return parseInt(Math.random()*minNum+1,10); 
+        break; 
+        case 2: 
+            return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+        break; 
+            default: 
+                return 0; 
+            break; 
+    } 
+} 
+function changeshow(){ 
+	
+	ctx.clearRect(0, 0, 400, 400);
+	var img = new Image();
+	img.src = document.getElementById('bw').value+".png";
+	img.onload = function(){
+		ctx.drawImage(img,0,0,400,400);
+	}
+}
+    </script>
+  </body>
+</html>
