@@ -64,11 +64,12 @@
 		</select><br>
 		<br>
 		套装: <select id="tz" onchange="getValue()">
-			<option value = 0>速度暴击</option>
-			<option value = 1>爆伤穿透</option>
-			<option value = 2>速度生命</option>
-			<option value = 3>反击免疫</option>
-			<option value = 4>速度命中</option>
+			<option value = 0>基础面板</option>
+			<option value = 1>速度暴击</option>
+			<option value = 2>爆伤穿透</option>
+			<option value = 3>速度生命</option>
+			<option value = 4>反击免疫</option>
+			<option value = 5>速度命中</option>
 		</select><br>
 	</form>
 	</div>
@@ -126,6 +127,7 @@ const optionsMap = {
 			
 };
 const nameMap = {
+	'光露娜' : [1039,613,6034,124,15,150,0,0],
 	'蒂姬' : [1039,673,5299,115,15,150,18,18],
 	'梅喧' : [1228,473,6266,113,23,150,0,0],
 	'洁克欧' : [1228,553,5784,109,23,165,0,0],
@@ -305,15 +307,15 @@ var mz = [];
 var kx = [];
 var ans = [],code;
 var tes = ["攻击","防御","生命","速度","暴击","爆伤","效果命中","效果抗性"];
-var addatt = [0.97,2.02,0.0,1.32,0.28];
-var adddef = [0.0,0.0,0.79,0.45,0.54];
-var addbl = [0.24,0.24,2.27,1.37,1.44];
-var addbj = [77,77,0,77,0];
-var addbs = [127,200,0,130,0];
-var addsp = [120,38,105,0,130];
-var addmz = [0,0,24,0,128];
-var addkx = [0,0,74,0,0];
-var addspa = [1,0,1,0,1];
+var addatt = [0,0.97,2.02,0.0,1.32,0.28];
+var adddef = [0,0.0,0.0,0.79,0.45,0.54];
+var addbl = [0,0.24,0.24,2.27,1.37,1.44];
+var addbj = [0,77,77,0,77,0];
+var addbs = [0,127,200,0,130,0];
+var addsp = [0,120,38,105,0,130];
+var addmz = [0,0,0,24,0,128];
+var addkx = [0,0,0,74,0,0];
+var addspa = [0,1,0,1,0,1];
 var chineseArray = [];
 var convas = document.getElementById('test');
 var ctx = convas.getContext('2d');
@@ -346,9 +348,9 @@ function getValue(){
 	var name = document.getElementById('bw').value;
 	var wz = document.getElementById('tz').value;
 	ans = [];
-	ans.push(nameMap[name][0] * (1.0 + addatt[wz])+515);
-	ans.push(nameMap[name][1] * (1.0 + adddef[wz])+310);
-	ans.push(nameMap[name][2] * (1.0 + addbl[wz])+2765);
+	ans.push(nameMap[name][0] * (1.0 + addatt[wz])+(wz!=0?515:0));
+	ans.push(nameMap[name][1] * (1.0 + adddef[wz])+(wz!=0?310:0));
+	ans.push(nameMap[name][2] * (1.0 + addbl[wz])+(wz!=0?2765:0));
 	ans.push(nameMap[name][3] * (1.0 + addspa[wz]*0.25) + addsp[wz]);
 	ans.push(nameMap[name][4] + addbj[wz]);
 	ans.push(nameMap[name][5] + addbs[wz]);
